@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\QuotationEnquiry;
+use App\Models\QuotationInput;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,9 +35,15 @@ class UsersController extends Controller
     }
 
     public function dashboard()
-    {
-
-        return view('dashboard');
+    {   if(Auth::user()->user_role == 1){
+        $searchcount = QuotationEnquiry::select('*')->count();
+        $quotationcount = QuotationInput::select('*')->count();
+    }
+    else{
+        $searchcount = QuotationEnquiry::select('*')->where('user_id', Auth::user()->id)->count();
+        $quotationcount = QuotationInput::select('*')->where('user_id', Auth::user()->id)->count();
+    }
+        return view('dashboard', compact('searchcount','quotationcount'));
     }
 
     public function users()

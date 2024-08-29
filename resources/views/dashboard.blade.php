@@ -46,7 +46,7 @@
 
                                         </div>
                                         <span class="fw-semibold d-block mb-1">Search</span>
-                                        <h3 class="card-title mb-2">12,628</h3>
+                                        <h3 class="card-title mb-2">{{$searchcount}}</h3>
                                         <small class="text-success fw-semibold">
                                             <i class="bx bx-up-arrow-alt"></i>
                                             +72.80%
@@ -65,7 +65,7 @@
 
                                         </div>
                                         <span>Quotation</span>
-                                        <h3 class="card-title text-nowrap mb-1">679</h3>
+                                        <h3 class="card-title text-nowrap mb-1">{{$quotationcount}}</h3>
                                         <small class="text-success fw-semibold">
                                             <i class="bx bx-up-arrow-alt"></i>
                                             +28.42%
