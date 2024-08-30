@@ -32,6 +32,7 @@
         <script src="assets/vendor/js/helpers.js"></script>
         <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
         <script src="assets/js/config.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     </head>
     <body>
         <!-- Layout wrapper -->
@@ -67,12 +68,14 @@
                                 <div data-i18n="Analytics">Result</div>
                             </a>
                         </li>
+                        @if(Auth::user()->user_role == 1)
                         <li class="menu-item {{ Request::is('users') ? 'active' : '' }}">
                             <a href="/users" class="menu-link">
                                 <i class="menu-icon tf-icons bx bx-user"></i>
                                 <div data-i18n="Analytics">User</div>
                             </a>
                         </li>
+                    @endif
                     </ul>
                 </aside>
                 <div class="layout-page">
@@ -115,7 +118,7 @@
                                             <div class="dropdown-divider"></div>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#" onclick="changePassword();">
+                                            <a class="dropdown-item" href="#" onclick="changePassword({{Auth::user()->id}});">
                                                 <i class="bx bx-lock me-2"></i>
                                                 <span class="align-middle" >Change Password</span>
                                             </a>

@@ -3,34 +3,43 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Add New User</h5>
+          <h5 class="modal-title" id="exampleModalLongTitle">Change Password</h5>
           
         </div>
+        <form action="changepassword" method="POST">
+          @csrf
         <div class="modal-body">
-            <form>
+                <input type="hidden" name="user_id" id="user_id">
+                @if(Auth::user()->user_role == 2)
                 <div class="form-group">
-                    <label for="currentPassword">Current Password</label>
-                    <input type="password" class="form-control" id="currentPassword" aria-describedby="currentPassword" placeholder="Current Password">
-                    
+                    <label for="currentpassword">Current Password</label>
+                    <input type="password" class="form-control" id="currentpassword" name="currentpassword" aria-describedby="currentpassword" placeholder="Enter Current Password" required>
+                    @error('currentpassword')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+                </div>
+                @endif
+                <div class="form-group">
+                    <label for="newpassword">New Password</label>
+                    <input type="password" class="form-control" id="newpassword" name="newpassword" aria-describedby="newpassword" placeholder="Enter New Password" required>
+                    @error('newpassword')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
                 </div>
                 <div class="form-group">
-                    <label for="newPassword">New Password</label>
-                    <input type="password" class="form-control" id="newPassword" aria-describedby="newPassword" placeholder="New Password">
-                    
-                </div>
-                <div class="form-group">
-                    <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" class="form-control" id="confirmPassword" aria-describedby="confirmPassword" placeholder="Current Password">
-                    
+                    <label for="confirmnewpassword">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmnewpassword" name="confirmnewpassword" aria-describedby="confirmnewpassword" placeholder="Enter Confirm New Password" required>
+                    @error('confirmnewpassword')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
                 </div>
                 
-               
-              </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="close1();">Cancel</button>
           <button type="submit" class="btn btn-primary">Update</button>
         </div>
+      </form>
       </div>
     </div>
 </div>
@@ -39,11 +48,19 @@
 
   <script>
 
-    function changePassword() {
+    function changePassword(id) {
+      document.getElementById('user_id').value = id;
+      // document.getElementById('currentpassword').value = "";
+      document.getElementById('newpassword').value = "";
+      document.getElementById('confirmnewpassword').value = "";
         $('#resetPassword').modal('show');
     }
 
     function close1(){
+      document.getElementById('user_id').value = "";
+      // document.getElementById('currentpassword').value = "";
+      document.getElementById('newpassword').value = "";
+      document.getElementById('confirmnewpassword').value = "";
         $('#resetPassword').modal('hide');
     }
   </script>
@@ -92,5 +109,6 @@ document.write(new Date().getFullYear());
 <script src="assets/js/dashboards-analytics.js"></script>
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </body>
 </html>

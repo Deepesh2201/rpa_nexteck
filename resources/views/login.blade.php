@@ -44,7 +44,7 @@
                         <div class="app-brand justify-content-center">
                             <a href="/" class="app-brand-link gap-2">
                                 <span class="app-brand-text demo text-body fw-bolder">
-                                <img src="assets/img/sofinish_logo.png" alt="" width="160px">
+                                    <img src="assets/img/sofinish_logo.png" alt="" width="160px">
                                 </span>
                             </a>
                         </div>
@@ -52,18 +52,18 @@
                         <h4 class="mb-2">Welcome to RPA! </h4>
                         <p class="mb-4">Please sign in to your account and start</p>
                         <!-- Check for error message -->
-@if (session('error'))
-<div class="alert alert-danger">
-    {{ session('error') }}
-</div>
-@endif
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
 
-<!-- Check for success message -->
-@if (session('success'))
-<div class="alert alert-success">
-    {{ session('success') }}
-</div>
-@endif
+                        <!-- Check for success message -->
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         <form id="formAuthentication" class="mb-3" action="{{ route('loginsave') }}" method="POST">
                             @csrf
                             <div class="mb-3">
@@ -71,7 +71,7 @@
                                 <input type="text" class="form-control" id="email" name="email"
                                     placeholder="Enter your email" autofocus value="{{ old('email') }}">
                             </div>
-                            
+
                             <div class="mb-3 form-password-toggle">
                                 <div class="d-flex justify-content-between">
                                     <label class="form-label" for="password">Password</label>
