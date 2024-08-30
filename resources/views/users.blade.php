@@ -58,14 +58,12 @@
                         
 
 
-        <div class="modal fade" id="userpopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal fade" id="userpopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLongTitle">Add New User</h5>
-                  <button type="button" class="close" data-dismiss="modal" onclick="closePopup();" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+                  
                 </div>
                 <div class="modal-body">
                     <form>
@@ -83,10 +81,24 @@
                           <label for="password">Password</label>
                           <input type="password" class="form-control" id="password" placeholder="Password">
                         </div>
-                        <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">Status</label>
+                        <div class="mt-4">
+                        <label class="form-check-label" for="exampleCheck1">Status</label>
+                          <div class="d-flex justify-content-around">
+                            
+                          <div>
+                          <input type="radio" class="form-check-input" name="status" id="active" value="active">
+                          <label class="form-check-label" for="exampleCheck1">Active</label>
+                          </div>
+
+                          <div>
+                          <input type="radio" class="form-check-input" name="status" id="inactive" value="inactive">
+                          <label class="form-check-label" for="exampleCheck1">Inactive</label>
+                          </div>
+                          </div>
+
+                          
                         </div>
+                        
                        
                       </form>
                 </div>
@@ -100,8 +112,7 @@
 
 
 
-
-
+          
 
           <script>
            function openPopup() {

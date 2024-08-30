@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('login', [UsersController::class, 'login'])->name('login');
 Route::post('login', [UsersController::class, 'loginsave'])->name('loginsave');
 Route::get('/logout', [UsersController::class, 'logout'])->name('logout');
+Route::get('forgotpassword', [UsersController::class, 'forgotpassword'])->name('forgotpassword');
 // Route::get('insert', [UsersController::class, 'insert'])->name('insert');
 Route::middleware('auth')->group(function () {
     Route::get('users', [UsersController::class, 'users'])->name('users');

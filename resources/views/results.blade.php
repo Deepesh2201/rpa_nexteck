@@ -15,6 +15,7 @@
                                                     <th scope="col">Date</th>
                                                     <th scope="col">Source Port</th>
                                                     <th scope="col">Destination Port</th>
+                                                    <th scope="col">Action</th>
                                                     
                                                   </tr>
                                                 </thead>
@@ -24,6 +25,7 @@
                                                     <td>27 Aug 2024</td>
                                                     <td>BRPOA</td>
                                                     <td>BRVIX</td>
+                                                    <td><button class="btn btn-sm btn-primary" onclick="changeStatus();">Change Status</button></td>
                                                   </tr>
                                                   <tr>
                                                     <th scope="row">2</th>
@@ -60,4 +62,46 @@
 
                     </div>
                     <!-- / Content -->
+
+
+                    <div class="modal fade" id="changeStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Change Status</h5>
+
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <label for=""> dummy text</label>
+                                <select class="form-control">
+                                    <option>--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                       
+                    </div>
+
+                    <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal();">Cancel</button>
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+                    <script>
+                      
+
+                      function changeStatus() {
+                          $('#changeStatus').modal('show');
+                      }
+
+                      function closeModal() {
+                          $('#changeStatus').modal('hide');
+                      }
+                    </script>
                     @endsection

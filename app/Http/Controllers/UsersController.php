@@ -36,20 +36,29 @@ class UsersController extends Controller
 
     public function dashboard()
     {   if(Auth::user()->user_role == 1){
-        $searchcount = QuotationEnquiry::select('*')->count();
-        $quotationcount = QuotationInput::select('*')->count();
+        $searchcount = QuotationInput::select('*')->count();
+        $quotationcount = QuotationEnquiry::select('*')->count();
+        $quotations = QuotationInput::select('*')
+        ->leftJoin('status','status.id','quotation_input.status')
+        ->leftJoin('users','users.id','quotation_input.user_id')
+        ->take(10)->get();
     }
     else{
-        $searchcount = QuotationEnquiry::select('*')->where('user_id', Auth::user()->id)->count();
-        $quotationcount = QuotationInput::select('*')->where('user_id', Auth::user()->id)->count();
+
+        $searchcount = QuotationInput::select('*')->where('user_id', Auth::user()->id)->count();
+        $quotationcount = QuotationEnquiry::select('*')->where('user_id', Auth::user()->id)->count();
+        $quotations = QuotationInput::select('*')->where('user_id', Auth::user()->id)->take(10)->get();
     }
-        return view('dashboard', compact('searchcount','quotationcount'));
+        return view('dashboard', compact('searchcount','quotationcount','quotations'));
     }
 
     public function users()
     {
+        $users = User::select('*')->get();
 
-        return view('users');
+
+
+        return view('users', compact('users'));
     }
     public function logout(Request $request)
     {
@@ -64,6 +73,11 @@ class UsersController extends Controller
 
         // Redirect to the login page or any other route
         return redirect()->route('login')->with('success', 'You have been logged out successfully.');
+    }
+
+    public function forgotpassword(){
+
+        return view('forgotpassword');
     }
 
     // public function insert(){

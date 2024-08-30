@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>RPA - Login</title>
+    <title>sofinish - Login</title>
     <meta name="description" content="">
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/img/favicon/favicon.ico">
@@ -43,7 +43,9 @@
                         <!-- Logo -->
                         <div class="app-brand justify-content-center">
                             <a href="/" class="app-brand-link gap-2">
-                                <span class="app-brand-text demo text-body fw-bolder">RPA</span>
+                                <span class="app-brand-text demo text-body fw-bolder">
+                                <img src="assets/img/sofinish_logo.png" alt="" width="160px">
+                                </span>
                             </a>
                         </div>
                         <!-- /Logo -->
@@ -73,7 +75,7 @@
                             <div class="mb-3 form-password-toggle">
                                 <div class="d-flex justify-content-between">
                                     <label class="form-label" for="password">Password</label>
-                                    <a href="#">
+                                    <a href="/forgotpassword">
                                         <small>Forgot Password?</small>
                                     </a>
                                 </div>
