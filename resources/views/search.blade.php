@@ -80,7 +80,7 @@
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group">
                             <label for="start_ptt">Container</label>
-                            <input type="text" class="form-control" name="con_pt" placeholder="No. of containers"
+                            <input type="text" class="form-control" name="con_pt" placeholder="Type of container"
                                 onkeyup="validatePort3()" id="con_pt" autocomplete="off" required>
                             <div id="suggestions3" class="suggestions3"></div>
                         </div>
@@ -135,19 +135,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($searches as $search)
+                        @foreach ($searches as $src)
                             <tr>
-
                                 <th scope="row">{{ $loop->iteration }}</th>
-                                <td>{{ $search->job_id }}</td>
-                                <td>{{ $search->full_name }}</td>
-                                <td>{{ \Carbon\Carbon::parse($search->date)->format('d-m-Y') }}</td>
-                                <td>{{ $search->source }}</td>
-                                <td>{{ $search->destination }}</td>
-                                <td>{{ $search->container }}</td>
-                                <td>{{ $search->commodity }}</td>
-                                <td>{{ $search->status }}</td>
-                                <td><button class="btn btn-sm btn-primary" onclick="viewresult({{ $search->job_id }});">View
+                                <td>{{ $src->job_id }}</td>
+                                <td>{{ $src->full_name }}</td>
+                                <td>{{ \Carbon\Carbon::parse($src->date)->format('d-m-Y') }}</td>
+                                <td>{{ $src->source }}</td>
+                                <td>{{ $src->destination }}</td>
+                                <td>{{ $src->container }}</td>
+                                <td>{{ $src->commodity }}</td>
+                                <td>{{ $src->status }}</td>
+                                <td><button class="btn btn-sm btn-primary" onclick="viewresult({{ $src->id }});">View
                                         Result</button></td>
                             </tr>
                         @endforeach
@@ -221,6 +220,7 @@
 
             <script>
                 function viewresult(id) {
+                    // alert(id)
     // Make an AJAX request to fetch data
     $.ajax({
         url: `/jobdetails/${id}`, // URL to the API endpoint
@@ -241,6 +241,7 @@
                         <td>${item.departure_time}</td>
                         <td>${item.arrival_time}</td>
                         <td>${item.shipping_company}</td>
+                        <td>${item.quotation_price}</td>
                         <td>
                             ${item.shipping_company_website ? 
                                 `<a href="${item.shipping_company_website}" target="_blank">
@@ -267,6 +268,7 @@
                                     <th scope="col">Departure Time</th>
                                     <th scope="col">Arrival Time</th>
                                     <th scope="col">Shipping Company</th>
+                                    <th scope="col">Quotation Price</th>
                                     <th scope="col">Website</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
@@ -314,6 +316,7 @@
          <script>
             // Convert Blade variables to JavaScript arrays
             const ports = @json($ports->pluck('port_code'));
+            const containers = @json($containers->pluck('container_details'));
 
             function validatePort() {
                 const input = document.getElementById('start_pt');
@@ -343,6 +346,25 @@
 
                 if (query.length >= 3) {
                     const filteredPorts = ports.filter(port => port.toLowerCase().includes(query));
+                    filteredPorts.forEach(port => {
+                        const div = document.createElement('div');
+                        div.textContent = port;
+                        div.onclick = () => {
+                            input.value = port;
+                            suggestionsDiv.innerHTML = '';
+                        };
+                        suggestionsDiv.appendChild(div);
+                    });
+                }
+            }
+            function validatePort3() {
+                const input = document.getElementById('con_pt');
+                const suggestionsDiv = document.getElementById('suggestions3');
+                const query = input.value.trim().toLowerCase();
+                suggestionsDiv.innerHTML = '';
+
+                if (query.length >= 3) {
+                    const filteredPorts = containers.filter(port => port.toLowerCase().includes(query));
                     filteredPorts.forEach(port => {
                         const div = document.createElement('div');
                         div.textContent = port;

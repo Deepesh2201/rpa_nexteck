@@ -34,6 +34,7 @@
                                     <th scope="col">Departure Time</th>
                                     <th scope="col">Arrival Time</th>
                                     <th scope="col">Shipping Company</th>
+                                    <th scope="col">Quotation Price</th>
                                     <th scope="col">Website</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -52,6 +53,7 @@
                                         <td>{{ $result->departure_time }}</td>
                                         <td>{{ $result->arrival_time }}</td>
                                         <td>{{ $result->shipping_company }}</td>
+                                        <td>{{ $result->quotation_price }}</td>
                                         @if ($result->shipping_company_website)
                                           <td><a href="{{ $result->shipping_company_website }}" target="_blank"><button class="btn btn-sm btn-primary">Visit Website</button></a></td>
                                         @else
