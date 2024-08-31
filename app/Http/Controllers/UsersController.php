@@ -53,7 +53,7 @@ class UsersController extends Controller
         $quotations = QuotationInput::select('*')
         ->leftJoin('status','status.id','quotation_input.status')
         ->leftJoin('users','users.id','quotation_input.user_id')
-        ->where('quotation_input.user_id', Auth::user->id)
+        ->where('quotation_input.user_id', Auth::user()->id)
         ->take(10)->get();
     }
         return view('dashboard', compact('searchcount','quotationcount','quotations'));
