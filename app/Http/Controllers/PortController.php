@@ -34,6 +34,17 @@ class PortController extends Controller
         return view('search', compact('searches','statuses','ports','containers'));
     }
 
+    public function getJobStatuses()
+{
+    $searches = QuotationInput::select('*','quotation_input.status as current_status','quotation_input.id as id')
+            ->leftJoin('users','users.id','quotation_input.user_id')
+            ->leftJoin('status','status.id','quotation_input.status')
+            ->orderBy('quotation_input.date','desc')
+            ->paginate(10);
+
+    return response()->json($searches);
+}
+
     public function results(){
         $statuses = DB::table('status')->select('*')->get();
         if(Auth::user()->user_role == 1){
@@ -106,7 +117,6 @@ class PortController extends Controller
             ->leftJoin('status','status.id','quotation_enquiry.status')
             ->where('quotation_enquiry.job_id',$job_id->job_id)->where('user_id', Auth::user()->id)->get();
         }
-
          
 
          // Check if the record was found
@@ -154,8 +164,8 @@ class PortController extends Controller
                 $apiResponse1 = Http::withHeaders([
                     'Authorization' => 'Bearer ' . $accessToken,
                     'Content-Type' => 'application/json',
-                ])->get('https://cloud.uipath.com/thenepqokzpo/DefaultTenant/orchestrator_/odata/PersonalWorkspaces');
-
+                // ])->get('https://cloud.uipath.com/thenepqokzpo/DefaultTenant/orchestrator_/odata/PersonalWorkspaces');
+                ])->get('https://cloud.uipath.com/thenepqokzpo/DefaultTenant/orchestrator_/odata/Folders');
                 
                 if ($apiResponse1->successful()) {
                     $folderId = $apiResponse1->json('value')[0]['Id'];
@@ -163,26 +173,27 @@ class PortController extends Controller
                     // Get-Process Release Key
                     $apiResponse2 = Http::withHeaders([
                         'Authorization' => 'Bearer ' . $accessToken,
-                    ])->get("https://cloud.uipath.com/thenepqokzpo/DefaultTenant/orchestrator_/odata/Releases?\$filter=Name%20eq%20'Shipping_Details'");
+                            'X-UIPATH-TenantName' => 'DefaultTenant',
+                            'X-UIPATH-OrganizationUnitId' => $folderId,
+                        ])->get("https://cloud.uipath.com/thenepqokzpo/DefaultTenant/orchestrator_/odata/Releases");
                     
-                    $releaseKey = $apiResponse1->json('value')[0]['Key'];
-                    // echo $key;
-                    // dd($apiResponse2);
+                    $releaseKey = $apiResponse2->json('value')[0]['Key'];
+                   
                     if ($apiResponse2->successful()) {
-
+                    
                         $apiResponse3 = Http::withHeaders([
                             'Authorization' => 'Bearer ' . $accessToken,
                             'Content-Type' => 'application/json',
                             'X-UIPATH-TenantName' => 'DefaultTenant',
-                            'X-UIPATH-OrganizationUnitId' => '112212',
+                            'X-UIPATH-OrganizationUnitId' => $folderId,
                         ])->post('https://cloud.uipath.com/thenepqokzpo/DefaultTenant/orchestrator_/odata/Jobs/UiPath.Server.Configuration.OData.StartJobs', [
                             'startInfo' => [
-                                'ReleaseKey' => '7594fd9e-3bb2-4c62-a38a-9e512b2ea994',
+                                'ReleaseKey' => $releaseKey,
                                 'Strategy' => 'ModernJobsCount',
                                 'JobsCount' => 1,
                                 'InputArguments' => json_encode([
                             'job_id' => $job_id,
-                            'user_id' => Auth::user()->id
+                            'user_id' => "001"
                         ]),
                                 
                             ]
@@ -201,8 +212,8 @@ class PortController extends Controller
                         //     'user_id' => Auth::user()->id
                         // ]),
 
-                        // dd($apiResponse3);
                         // Check API responses
+                        
                 if ($apiResponse1->successful() && $apiResponse2->successful() && $apiResponse3->successful()) {
                     return back()->with('success', 'Enquiry created successfully. Your Job ID is: ' . $job_id);
                 } else {

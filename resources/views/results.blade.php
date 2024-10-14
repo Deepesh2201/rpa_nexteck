@@ -27,8 +27,8 @@
                                     <th scope="col">Job Id</th>
                                     <th scope="col">Agent Name</th>
                                     <th scope="col">Status</th>
-                                    <th scope="col">Source</th>
-                                    <th scope="col">Destination</th>
+                                    <th scope="col">Port Of Loading</th>
+                                    <th scope="col">Port Of Discharge</th>
                                     <th scope="col">Container</th>
                                     <th scope="col">Commodity</th>
                                     <th scope="col">Departure Time</th>

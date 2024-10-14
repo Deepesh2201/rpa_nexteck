@@ -17,6 +17,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/', [UsersController::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard', [UsersController::class, 'dashboard'])->name('dashboard');
     Route::get('search', [PortController::class, 'search'])->name('search');
+    Route::get('/job-statuses', [PortController::class, 'getJobStatuses']);
+
     Route::get('results', [PortController::class, 'results'])->name('results');
     Route::post('jobstatus', [PortController::class, 'jobstatus'])->name('jobstatus');
     Route::get('jobdetails/{id}', [PortController::class, 'jobdetails'])->name('jobdetails');
